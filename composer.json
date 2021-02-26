@@ -12,7 +12,7 @@
     "extra": {
         "patches": {
             "magento/framework": {
-                "Add support for symlink Maintenance flags": "patches/symlink_flag_support.patch"
+                "Add support for symlink Maintenance flags": "./patches/symlink_flag_support.patch"
             }
         }
     }
