@@ -1,0 +1,19 @@
+{
+    "name": "readymage/maintenance",
+    "description": "Readymage package for support maintenance mode in Magento 2",
+    "version": "1.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "require": {
+        "magento/framework": "*",
+        "cweagans/composer-patches": "^1.5.0"
+    },
+    "extra": {
+        "patches": {
+            "magento/framework": {
+                "Add support for symlink Maintenance flags": "patches/symlink_flag_support.patch"
+            }
+        }
+    }
+}

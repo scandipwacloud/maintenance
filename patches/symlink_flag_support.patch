@@ -1,0 +1,32 @@
+--- a/vendor/magento/framework/App/MaintenanceMode.php
++++ b/vendor/magento/framework/App/MaintenanceMode.php
+@@ -85,7 +85,13 @@
+             return $this->flagDir->touch(self::FLAG_FILENAME);
+         }
+         if ($this->flagDir->isExist(self::FLAG_FILENAME)) {
+-            return $this->flagDir->delete(self::FLAG_FILENAME);
++            $flagFullPath = $this->flagDir->getAbsolutePath(self::FLAG_FILENAME);
++            if (is_link($flagFullPath)) {
++                $target = readlink($flagFullPath);
++                $this->flagDir->getDriver()->deleteFile($target);
++            } else {
++                return $this->flagDir->delete(self::FLAG_FILENAME);
++            }
+         }
+         return true;
+     }
+@@ -102,7 +108,13 @@
+         $addresses = (string)$addresses;
+         if (empty($addresses)) {
+             if ($this->flagDir->isExist(self::IP_FILENAME)) {
+-                return $this->flagDir->delete(self::IP_FILENAME);
++                $flagFullPath = $this->flagDir->getAbsolutePath(self::IP_FILENAME);
++                if (is_link($flagFullPath)) {
++                    $target = readlink($flagFullPath);
++                    $this->flagDir->getDriver()->deleteFile($target);
++                } else {
++                    return $this->flagDir->delete(self::IP_FILENAME);
++                }
+             }
+             return true;
+         }
